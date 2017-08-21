@@ -26,7 +26,7 @@ TEST_CASE("Empty Word cannot be created") {
 TEST_CASE("Identical Words are equal") {
     Word word1("that");
 	Word word2("that");
-	CHECK(word1 == word2);    
+	CHECK(word1 == word2);
 }
 
 TEST_CASE("Non-identical Words are not equal") {
@@ -35,37 +35,41 @@ TEST_CASE("Non-identical Words are not equal") {
 	CHECK_FALSE(word1 == word2);
 }
 
-//TEST_CASE("Case is ignored when comparing Words") {
-//	Word uppercase_word(UPPERCASE);
-//	Word lowercase_word(LOWERCASE);
-//	CHECK(lowercase_word == uppercase_word);
-//}
+TEST_CASE("Case is ignored when comparing Words") {
+	Word uppercase_word(UPPERCASE);
+	Word lowercase_word(LOWERCASE);
+	CHECK(lowercase_word == uppercase_word);
+}
+
+TEST_CASE("Punctuation is ignored when comparing Words") {
+	Word word_with_punct(PUNCTUATION + "hel" + PUNCTUATION + "lo" + PUNCTUATION);
+	Word word_without_punct("hello");
+	CHECK(word_without_punct == word_with_punct);
+}
+
+
+
+TEST_CASE("Word cannot consist solely of punctuation") {
+	CHECK_THROWS_AS(Word testword("!@#$%"), WordContainsNoLetters);
+}
+
+TEST_CASE("Word cannot contain a space") {
+	CHECK_THROWS_AS(Word testword("hello there"), WordContainsSpace);
+}
+
+TEST_CASE("Word is queryable if greater than or equal to a specific size") {
+	string test_string;
+	test_string.resize(MIN_SIZE_FOR_QUERY, 'a');
+	Word test_word(test_string);
+	CHECK(test_word.isQueryable());
+}
+
+ TEST_CASE("Word is not queryable if less than a specific size") {
+	Word test_word("hi");
+	CHECK_FALSE(test_word.isQueryable());
+}
 //
-//TEST_CASE("Punctuation is ignored when comparing Words") {
-//	Word word_with_punct(PUNCTUATION + "hel" + PUNCTUATION + "lo" + PUNCTUATION);
-//	Word word_without_punct("hello");
-//	CHECK(word_without_punct == word_with_punct);
-//}
-//
-//TEST_CASE("Word cannot consist solely of punctuation") {
-//	CHECK_THROWS_AS(Word testword("!@#$%"), WordContainsNoLetters);
-//}
-//
-//TEST_CASE("Word cannot contain a space") {
-//	CHECK_THROWS_AS(Word testword("hello there"), WordContainsSpace);
-//}
-//
-//TEST_CASE("Word is queryable if greater than or equal to a specific size") {
-//	string test_string;
-//	test_string.resize(MIN_SIZE_FOR_QUERY, 'a');
-//	Word test_word(test_string);
-//	CHECK(test_word.isQueryable());
-//}
-//
-//TEST_CASE("Word is not queryable if less than a specific size") {
-//// Write this test...
-//}
-//
+//// --------------//
 //// ----------------------------------------------------
 //
 //// Test null case first - here, an empty line

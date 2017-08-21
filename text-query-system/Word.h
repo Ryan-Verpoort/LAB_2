@@ -22,6 +22,11 @@ public:
 	// returns true if queryable, false otherwise
 	// (according to the brief, words less than 3 characters are not queryable)
 	bool isQueryable() const;
+	
+	void Case_Sensitive();
+	void Remove_punct();
+	void Just_punct();
+	void Spaces();
 
 private:	
 	string _word;	
