@@ -137,86 +137,86 @@ const int MIN_SIZE_FOR_QUERY = 3;
 
 //// ----------------------------------------------------
 
-TEST_CASE("Word cannot be found in empty Paragraph")
-{
-    Line testline("");
-    Paragraph testparagraph;
-    testparagraph.addLine(testline);
-    Word searchword("hello");
-    vector<int> line_number;
-    CHECK_FALSE(testparagraph.contains(searchword, line_number));
-}
-
-TEST_CASE("Word not present in Paragraph cannot be found")
-{
-    Line testline("Walking on water and developing software from a specification are easy if both are frozen.");
-    Paragraph testparagraph;
-    testparagraph.addLine(testline);
-    Word searchword("hello");
-    vector<int> line_number;
-    CHECK_FALSE(testparagraph.contains(searchword, line_number));
-}
-
-TEST_CASE("Line number of a Word appearing once in Paragraph is returned")
-{
-    Line testline("Walking on water and developing software from a specification are easy if both are frozen.");
-    Paragraph testparagraph;
-    testparagraph.addLine(testline);
-    Word searchword("water");
-    vector<int> line_number;
-    CHECK(testparagraph.contains(searchword, line_number));
-}
+//TEST_CASE("Word cannot be found in empty Paragraph")
+//{
+//    Line testline("");
+//    Paragraph testparagraph;
+//    testparagraph.addLine(testline);
+//    Word searchword("hello");
+//    vector<int> line_number;
+//    CHECK_FALSE(testparagraph.contains(searchword, line_number));
+//}
 //
-TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned")
-{
-    Line testline1("Walking on water and developing software from a specification are easy if both are frozen.");
-    Line testline2("Water is an essential thing for people to live without it we die!");
-    Line testline3("dogs are cool except if they bite you.");
-    Line testline4("Jesus was able to turn water into wine.");
-    Paragraph testparagraph;
-    testparagraph.addLine(testline1);
-    testparagraph.addLine(testline2);
-    testparagraph.addLine(testline3);
-    testparagraph.addLine(testline4);
-    Word searchword("water");
-    vector<int> line_number;
-    CHECK(testparagraph.contains(searchword, line_number));
-    vector<int> expected_line_numbers;
-    expected_line_numbers.push_back(1);
-    expected_line_numbers.push_back(2);
-    expected_line_numbers.push_back(4);
-	CHECK(expected_line_numbers == line_number);
-}
+//TEST_CASE("Word not present in Paragraph cannot be found")
+//{
+//    Line testline("Walking on water and developing software from a specification are easy if both are frozen.");
+//    Paragraph testparagraph;
+//    testparagraph.addLine(testline);
+//    Word searchword("hello");
+//    vector<int> line_number;
+//    CHECK_FALSE(testparagraph.contains(searchword, line_number));
+//}
 //
- TEST_CASE("Line numbers returned account for an empty Line")
-{
-    Line testline1("");
-    Line testline2("Water is an essential thing for people to live without it we die!");
-    Paragraph testparagraph;
-    testparagraph.addLine(testline1);
-    testparagraph.addLine(testline2);
-    Word searchword("water");
-    vector<int> line_number;
-    CHECK(testparagraph.contains(searchword, line_number));
-    vector<int> expected_line_numbers;
-    expected_line_numbers.push_back(2);
-	CHECK(expected_line_numbers == line_number);
-}
+//TEST_CASE("Line number of a Word appearing once in Paragraph is returned")
+//{
+//    Line testline("Walking on water and developing software from a specification are easy if both are frozen.");
+//    Paragraph testparagraph;
+//    testparagraph.addLine(testline);
+//    Word searchword("water");
+//    vector<int> line_number;
+//    CHECK(testparagraph.contains(searchword, line_number));
+//}
+////
+//TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned")
+//{
+//    Line testline1("Walking on water and developing software from a specification are easy if both are frozen.");
+//    Line testline2("Water is an essential thing for people to live without it we die!");
+//    Line testline3("dogs are cool except if they bite you.");
+//    Line testline4("Jesus was able to turn water into wine.");
+//    Paragraph testparagraph;
+//    testparagraph.addLine(testline1);
+//    testparagraph.addLine(testline2);
+//    testparagraph.addLine(testline3);
+//    testparagraph.addLine(testline4);
+//    Word searchword("water");
+//    vector<int> line_number;
+//    CHECK(testparagraph.contains(searchword, line_number));
+//    vector<int> expected_line_numbers;
+//    expected_line_numbers.push_back(1);
+//    expected_line_numbers.push_back(2);
+//    expected_line_numbers.push_back(4);
+//	CHECK(expected_line_numbers == line_number);
+//}
+////
+// TEST_CASE("Line numbers returned account for an empty Line")
+//{
+//    Line testline1("");
+//    Line testline2("Water is an essential thing for people to live without it we die!");
+//    Paragraph testparagraph;
+//    testparagraph.addLine(testline1);
+//    testparagraph.addLine(testline2);
+//    Word searchword("water");
+//    vector<int> line_number;
+//    CHECK(testparagraph.contains(searchword, line_number));
+//    vector<int> expected_line_numbers;
+//    expected_line_numbers.push_back(2);
+//	CHECK(expected_line_numbers == line_number);
+//}
 //
 //// ----------------------------------------------------
 //
 //// Integration test - both Paragraph and File Reader are tested together
-// TEST_CASE("File can be read into Paragraph and successfully searched") {
-//	// make sure that alice.txt is in the right location for this to work!
-//	FileReader filereader("alice.txt");
-//	Paragraph paragraph;
-//	filereader.readFileInto(paragraph);
-//	Word search_word("Daddy");
-//	vector<int> line_numbers;
-//	CHECK(paragraph.contains(search_word, line_numbers));
-//	vector<int> expected_line_numbers;
-//	expected_line_numbers.push_back(1);
-//	expected_line_numbers.push_back(4);
-//	expected_line_numbers.push_back(6);
-//	CHECK(expected_line_numbers == line_numbers);
-//}
+ TEST_CASE("File can be read into Paragraph and successfully searched") {
+	// make sure that alice.txt is in the right location for this to work!
+	FileReader filereader("alice.txt");
+	Paragraph paragraph;
+	filereader.readFileInto(paragraph);
+	Word search_word("Daddy");
+	vector<int> line_numbers;
+	CHECK(paragraph.contains(search_word, line_numbers));
+	vector<int> expected_line_numbers;
+	expected_line_numbers.push_back(1);
+	expected_line_numbers.push_back(4);
+	expected_line_numbers.push_back(6);
+	CHECK(expected_line_numbers == line_numbers);
+}
